@@ -63,7 +63,7 @@ def underscore_to_camelcase(value):
 
 def underscore_to_camelcase_dict(d):
     "Converts a dicts keys to camelcase"
-    return {underscore_to_camelcase(key):value for key, value in d.items()}
+    return dict((underscore_to_camelcase(key),value) for key, value in d.items())
 
 def camelcase_to_underscore(value):
     """
@@ -168,7 +168,7 @@ class Resource(object):
         return [camelcase_to_underscore(key) for key in self._json.keys() if key not in hide_keys] 
 
     def get_dict(self):
-        return {key: self.__getattr__(key) for key in self.keys()}
+        return dict((key, self.__getattr__(key)) for key in self.keys())
 
     def get_json(self):
         return self._json
